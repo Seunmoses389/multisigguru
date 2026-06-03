@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.venv/
+venv/
+.env
+.DS_Store
+.idea/
+.vscode/
+health-report.json
+health-report.*
+*.report.html
+*.report.md
