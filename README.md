@@ -132,15 +132,6 @@ apk add jq
 
 Verify with `jq --version`.
 
-### 3. Get the skill
-
-```bash
-git clone https://github.com/Seunmoses389/multisigguru
-cd multisigguru
-chmod +x scripts/*.sh
-```
-
-That's it. No `pip install`, no `npm install`, no `forge build`, no compile. The skill is one or more bash scripts that use `cast` (from Foundry) for every RPC read. The `assets/networks.json` file already knows the Pharos Pacific Mainnet and Atlantic Testnet endpoints.
 ## Usage
 
 ### Audit a Safe on Pharos mainnet
