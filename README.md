@@ -253,6 +253,28 @@ PRs welcome — especially new checks, additional Safe-compatible
 contracts (Zodiac, custom multisigs), and benchmarks against real
 DAOs.
 
+
+## Tests
+
+```bash
+pytest tests/ -v  # or: bash scripts/audit.sh --demo
+```
+
+The test suite covers the engine's heuristics, the JSON output schema, and (when run with `cast` installed) a live RPC smoke test against Pharos Pacific Mainnet.
+
+## Repository layout
+
+```
+.
+├── README.md                  # this file
+├── SKILL.md                   # Agent-side description (loaded by Claude/Codex/etc.)
+├── scripts/
+│   └── audit.sh          # bash + cast engine — the entire skill
+├── assets/
+│   └── networks.json          # Pharos Skill Engine network config
+└── tests/
+    └── test_*.sh              # bash smoke test
+```
 ## License
 
 [MIT-0](https://opensource.org/licenses/MIT-0) — free to use, modify,
