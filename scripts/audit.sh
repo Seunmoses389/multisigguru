@@ -12,13 +12,6 @@
 
 set -euo pipefail
 
-# ---- Foundry required ----
-if ! command -v cast >/dev/null 2>&1; then
-  echo "Error: 'cast' not found. Install Foundry:"
-  echo "  curl -L https://foundry.paradigm.xyz | bash && foundryup"
-  exit 1
-fi
-
 # ---- Load network config ----
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 NET_JSON="$SCRIPT_DIR/../assets/networks.json"
@@ -91,6 +84,13 @@ esac
 if [ -z "$SAFE" ]; then
   echo "Error: --safe required (or use --demo)" >&2
   usage
+  exit 1
+fi
+
+# ---- Foundry required (checked AFTER arg parsing so --help works offline) ----
+if ! command -v cast >/dev/null 2>&1; then
+  echo "Error: 'cast' not found. Install Foundry:" >&2
+  echo "  curl -L https://foundry.paradigm.xyz | bash && foundryup" >&2
   exit 1
 fi
 
