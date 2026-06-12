@@ -28,9 +28,9 @@ Typical agent-side flow:
 ```text
 User -> Agent: "Score wallet 0xabc... for MEV exposure on Pharos"
 Agent -> looks up SKILL.md for Multisig Health Check
-Agent -> picks the right flag combo: --wallet 0xabc... --blocks 5000 --format json
-Agent -> runs: bash scripts/detect.sh --wallet 0xabc... --blocks 5000 --format json
-Agent -> reads the JSON from stdout, presents it to the user in a friendly form
+Agent -> picks the right flag combo: --safe 0xabc... 
+Agent -> runs: bash scripts/audit.sh --safe 0xabc... 
+Agent -> reads the output, presents it to the user in a friendly form
 ```
 
 The script prints structured output to stdout and human-readable progress to stderr, so the agent can parse the stdout cleanly (with `jq`) without being polluted by progress messages.
@@ -71,7 +71,7 @@ The first time you run this, the script may take a few seconds to fetch block da
 
 ```bash
 # Audit a Safe on mainnet
-bash scripts/audit.sh --safe 0xSAFE --network mainnet
+bash scripts/audit.sh --safe 0xSAFE
 
 # Run the demo (uses a real public mainnet Safe)
 bash scripts/audit.sh --demo
@@ -83,7 +83,7 @@ bash scripts/audit.sh --safe 0xSAFE --format json
 ### All flags
 
 ```
---safe 0xSAFE --network mainnet|testnet --format text|json|markdown --demo
+--safe 0xSAFE --chain mainnet|testnet --format text|json|markdown --demo
 ```
 
 ## Networks
@@ -95,7 +95,7 @@ The skill is built to run against the Pharos EVM chains. The chain config is sto
 | mainnet (Pacific Ocean) | 1672 | `https://rpc.pharos.xyz` | ✓ |
 | atlantic-testnet | 688689 | `https://atlantic.dplabs-internal.com` |  |
 
-The script defaults to mainnet. Pass `--network testnet` to use the testnet instead. You can also override the RPC URL directly with `--rpc-url https://your-rpc.example.com`.
+The script defaults to mainnet. Pass `--chain testnet` to use the testnet instead. You can also override the RPC URL directly with `--rpc-url https://your-rpc.example.com`.
 
 ## Set it up in an AI agent
 
@@ -120,9 +120,9 @@ The Pharos Agent Center is the official agent runtime for the Pharos network. It
 
 3. **Invoke from the agent's chat UI** (or via the Agent Center's CLI / API):
    ```text
-   User: "Audit this Safe: 0xabc..."
+   User: "Audit this Safe: 0xabc... on Pharos"
    Agent Center: loads Multisig Health Check, runs:
-     bash ~/.pharos/agent-center/skills/multisigguru/scripts/audit.sh --safe 0xabc... --network mainnet
+     bash ~/.pharos/agent-center/skills/multisigguru/scripts/audit.sh --safe 0xSAFE --chain mainnet
    ```
 
 ### Path B — `npx skills add` (for Claude Code, Cursor, Codex, generic MCP agents)
@@ -154,7 +154,7 @@ No agent needed — just shell + Foundry.
 
 | Caller says | Script invocation |
 |---|---|
-| Audit Safe `0xabc...` on Pharos mainnet | `bash scripts/audit.sh --safe 0xabc... --network mainnet` |
+| Audit Safe `0xabc...` on Pharos | `bash scripts/audit.sh --safe 0xabc... --chain mainnet` |
 | Run the multisig audit demo | `bash scripts/audit.sh --demo` |
 | Show the audit as JSON | `bash scripts/audit.sh --safe 0xabc... --format json` |
 | "Run the demo" | `bash scripts/audit.sh --demo` |
